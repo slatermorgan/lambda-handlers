@@ -18,6 +18,6 @@ func getHandler(h handler.HandlerFunc) LambdaCallback {
 	return func(r *events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
 		res, err := h(NewAWSRequest(r))
 
-		return NewAWSResponse(res), err
+		return NewEvent(res), err
 	}
 }

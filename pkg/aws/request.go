@@ -34,5 +34,14 @@ func (r *AWSRequest) PathByName(name string) string {
 
 // PathByName gets a query parameter by its name eg. "locale"
 func (r *AWSRequest) QueryByName(name string) string {
-	return r.headers[name]
+	return r.queryParams[name]
+}
+
+// PathByName gets a query parameter by its name eg. "locale"
+func (r *AWSRequest) GetAuthToken() string {
+	if r.HeaderByName("Authorization") != "" {
+		return r.HeaderByName("Authorization")
+	} else {
+		return r.HeaderByName("authorization")
+	}
 }
