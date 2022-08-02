@@ -28,8 +28,9 @@ func TestFind_AWS(t *testing.T) {
 		},
 	}
 	req := aws.NewAWSRequest(awsReq)
-	c := new(mocks.Connector)
 
+	// Mocks
+	c := new(mocks.Connector)
 	c.On("Authorize",
 		expectToken,
 	).Return(
@@ -42,9 +43,12 @@ func TestFind_AWS(t *testing.T) {
 		expectAddrs,
 		nil,
 	).Times(1)
+
 	logger, _ := test.NewNullLogger()
+
 	resHander := handler.NewResponseHandler(logger, &aws.AWSResponse{})
 
+	// Asserts
 	resp, err := FindHandler(resHander, c, nil, nil)(req)
 	assert.NoError(t, err)
 
