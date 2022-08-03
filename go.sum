@@ -1,5 +1,3 @@
-bitbucket.org/oneiota/mesh-connect-models v1.14.0 h1:LsM8HsmYZAxOriD0agi9seacukYOn7WZvF4czZmKUtM=
-bitbucket.org/oneiota/mesh-connect-models v1.14.0/go.mod h1:nMOIs9ACAAR+XXA239xkRW7WBPMD6gGkdRYUvcXaTNY=
 bitbucket.org/oneiota/serviceerror v1.2.0 h1:qmF0PQ0yZFg+jy76bYNhvKVde3qqdJyaaTXuBGKqIsk=
 bitbucket.org/oneiota/serviceerror v1.2.0/go.mod h1:tRRVxR46OwGK/s92yzHw5dN3m1msUrshvxPUIMPw4ao=
 github.com/aws/aws-lambda-go v1.34.1 h1:M3a/uFYBjii+tDcOJ0wL/WyFi2550FHoECdPf27zvOs=
@@ -7,6 +5,8 @@ github.com/aws/aws-lambda-go v1.34.1/go.mod h1:jwFe2KmMsHmffA1X2R09hH6lFzJQxzI8q
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
+github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/kr/pretty v0.2.0 h1:s5hAObm+yFO5uHYt5dYjxi2rXrsnmRpJx4OYvIWUaQs=
 github.com/kr/pretty v0.2.0/go.mod h1:ipq/a2n7PKx3OHsz4KJII5eveXtPO4qwEXGdVfWzfnI=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
