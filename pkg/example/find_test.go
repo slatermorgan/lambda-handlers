@@ -3,7 +3,6 @@ package example
 import (
 	"testing"
 
-	"bitbucket.org/oneiota/mesh-connect-models/address"
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/slatermorgan/lambda-handlers/internal/mocks"
 	"github.com/slatermorgan/lambda-handlers/pkg/aws"
@@ -15,7 +14,7 @@ import (
 
 func TestFind_AWS(t *testing.T) {
 	expectToken := "authToken"
-	expectAddrs := []*address.Address{}
+	model := ExampleModel{}
 	expectQuery := "M36FJ"
 	awsReq := &events.APIGatewayProxyRequest{
 		Path: "test/123",
@@ -40,7 +39,7 @@ func TestFind_AWS(t *testing.T) {
 	c.On("Find",
 		expectQuery,
 	).Return(
-		expectAddrs,
+		model,
 		nil,
 	).Times(1)
 
@@ -57,7 +56,7 @@ func TestFind_AWS(t *testing.T) {
 		StatusCode:        200,
 		Headers:           map[string]string{"Content-Type": "application/json"},
 		MultiValueHeaders: map[string][]string(nil),
-		Body:              "[]",
+		Body:              "{\"success\":false}",
 		IsBase64Encoded:   false,
 	}
 

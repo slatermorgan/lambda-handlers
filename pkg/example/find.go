@@ -3,19 +3,22 @@ package example
 import (
 	"net/http"
 
-	"bitbucket.org/oneiota/mesh-connect-models/address"
 	"github.com/slatermorgan/lambda-handlers/pkg/handler"
 )
 
+type ExampleModel struct {
+	Success bool `json:"success"`
+}
+
 type Connector interface {
 	Authorize(token string) error
-	Find(postcode string) ([]*address.Address, error)
+	Find(postcode string) (interface{}, error)
 }
 
 const findHandlerDefaultCount = 10
 
 // AfterFindHandlerHook is a hook/callback function definition, triggered after the Find connector call on for the FindHandler
-type AfterFindHandlerHook func([]*address.Address) error
+type AfterFindHandlerHook func(interface{}) error
 
 // FindHandler returns a handlers.HandlerFunc which is used for the Find endpoint.
 // The handler calls the Find method of the connector
