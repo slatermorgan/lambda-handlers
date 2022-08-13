@@ -15,7 +15,7 @@ import (
 func TestFind_AWS(t *testing.T) {
 	expectToken := "authToken"
 	model := ExampleModel{}
-	expectQuery := "M36FJ"
+	expectQuery := "POSTCODE"
 	awsReq := &events.APIGatewayProxyRequest{
 		Path: "test/123",
 		QueryStringParameters: map[string]string{
