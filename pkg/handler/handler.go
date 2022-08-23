@@ -32,8 +32,9 @@ type logger interface {
 
 // Genertic Handler object which is the reciever in every handler method
 type ResponseHandler struct {
-	responder Responder
-	logger    logger
+	DefaultHeaders map[string]string
+	responder      Responder
+	logger         logger
 }
 
 func NewResponseHandler(logger logger, responder Responder) *ResponseHandler {
@@ -58,7 +59,7 @@ func (r *ResponseHandler) BuildResponse(code int, model interface{}) (Responder,
 	}
 
 	r.responder.SetStatusCode(code)
-	r.responder.SetHeaders(map[string]string{"Content-Type": "application/json"})
+	r.responder.SetHeaders(r.DefaultHeaders)
 	r.responder.SetBody(string(body))
 
 	return r.responder, nil
