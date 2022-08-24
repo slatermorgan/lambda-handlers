@@ -58,6 +58,12 @@ func (r *ResponseHandler) BuildResponse(code int, model interface{}) (Responder,
 		body = string(bodyBytes)
 	}
 
+	return r.BuildResponder(code, body)
+}
+
+// BuildRawJSONResponse builds an Response with the given status code & response body
+// The Response will contain the raw response body and appropriate JSON header
+func (r *ResponseHandler) BuildResponder(statusCode int, respBody string) (Responder, error) {
 	r.responder.SetStatusCode(code)
 	r.responder.SetHeaders(r.DefaultHeaders)
 	r.responder.SetBody(string(body))
