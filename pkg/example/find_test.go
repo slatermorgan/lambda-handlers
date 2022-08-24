@@ -46,6 +46,7 @@ func TestFind_AWS(t *testing.T) {
 	logger, _ := test.NewNullLogger()
 
 	resHander := handler.NewResponseHandler(logger, &aws.AWSResponse{})
+	resHander.DefaultHeaders = map[string]string{"Content-Type": "application/json"}
 
 	// Asserts
 	resp, err := FindHandler(resHander, c, nil, nil)(req)
