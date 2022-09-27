@@ -3,6 +3,7 @@ module github.com/slatermorgan/lambda-handlers
 go 1.18
 
 require (
+	bitbucket.org/oneiota/serviceerror v1.3.0
 	github.com/aws/aws-lambda-go v1.34.1
 	github.com/gorilla/mux v1.8.0
 	github.com/sirupsen/logrus v1.7.0
