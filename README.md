@@ -4,7 +4,7 @@ Lambda Handlers is a go module allowing Serverless handler functions to be ran a
 
 Currently supported:
  - AWS Lambda.
- - Mux HTTP router.
+ - Standard library HTTP.
 
 ## Usage
 
