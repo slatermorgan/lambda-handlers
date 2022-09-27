@@ -6,6 +6,7 @@ type Requester interface {
 	HeaderByName(name string) string
 	PathByName(name string) string
 	QueryByName(name string) string
+	SetQueryByName(name, set string)
 	GetAuthToken() string
 }
 

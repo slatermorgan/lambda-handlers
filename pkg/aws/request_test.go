@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestBody(t *testing.T) {
+func TestRequestGetters(t *testing.T) {
 	body := "abcdef"
 
 	token := "abc.def.ghi"
@@ -61,4 +61,30 @@ func TestBody_Empty(t *testing.T) {
 	assert.Equal(t, "", req.HeaderByName("Authorization"))
 	assert.Equal(t, "", req.PathByName("pathKey"))
 	assert.Equal(t, "", req.QueryByName("queryKey"))
+}
+
+func TestSetQueryByName(t *testing.T) {
+	queryKey := "q"
+	queryVal := "football"
+
+	query2Key := "t"
+	query2Val := "red"
+
+	newQueryVal := "soccer"
+
+	req := AWSRequest{
+		queryParams: map[string]string{
+			queryKey:  queryVal,
+			query2Key: query2Val,
+		},
+	}
+
+	// BEFORE
+	assert.Equal(t, queryVal, req.QueryByName(queryKey))
+	assert.Equal(t, query2Val, req.QueryByName(query2Key))
+
+	req.SetQueryByName(queryKey, newQueryVal)
+	// AFTER
+	assert.Equal(t, newQueryVal, req.QueryByName(queryKey))
+	assert.Equal(t, query2Val, req.QueryByName(query2Key))
 }

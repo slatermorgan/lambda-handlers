@@ -32,9 +32,15 @@ func (r *AWSRequest) PathByName(name string) string {
 	return r.pathParams[name]
 }
 
-// PathByName gets a query parameter by its name eg. "locale"
+// QueryByName gets a query parameter by its name eg. "locale"
 func (r *AWSRequest) QueryByName(name string) string {
 	return r.queryParams[name]
+}
+
+// PathByName sets a query parameter by its name eg. "locale"
+// This is used to alter requests in middleware functions.
+func (r *AWSRequest) SetQueryByName(name, set string) {
+	r.queryParams[name] = set
 }
 
 // PathByName gets a query parameter by its name eg. "locale"

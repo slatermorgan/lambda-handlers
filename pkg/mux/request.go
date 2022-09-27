@@ -39,11 +39,17 @@ func (r *Request) PathByName(name string) string {
 	return vars[name]
 }
 
-// PathByName gets a query parameter by its name eg. "locale"
+// QueryByName gets a query parameter by its name eg. "locale"
 func (r *Request) QueryByName(name string) string {
 	v := r.request.URL.Query()
 
 	return v.Get(name)
+}
+
+// SetQueryByName gets a query parameter by its name eg. "locale"
+func (r *Request) SetQueryByName(name, set string) {
+	v := r.request.URL.Query()
+	v.Set(name, set)
 }
 
 // PathByName gets a query parameter by its name eg. "locale"
