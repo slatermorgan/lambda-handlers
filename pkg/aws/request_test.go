@@ -3,6 +3,7 @@ package aws
 import (
 	"testing"
 
+	"github.com/aws/aws-lambda-go/events"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -87,4 +88,35 @@ func TestSetQueryByName(t *testing.T) {
 	// AFTER
 	assert.Equal(t, newQueryVal, req.QueryByName(queryKey))
 	assert.Equal(t, query2Val, req.QueryByName(query2Key))
+}
+
+func TestNewAWSRequest(t *testing.T) {
+	pathKey := "pathKey"
+	pathVal := "path"
+	queryKey := "q"
+	queryVal := "football"
+	body := "body here"
+	headKey := "headerKey"
+	headVal := "headerValue"
+
+	req := &events.APIGatewayProxyRequest{
+		QueryStringParameters: map[string]string{
+			queryKey: queryVal,
+		},
+		PathParameters: map[string]string{
+			pathKey: pathVal,
+		},
+		Body: "body here",
+		Headers: map[string]string{
+			headKey: headVal,
+		},
+	}
+
+	actual := NewAWSRequest(req)
+
+	// BEFORE
+	assert.Equal(t, body, actual.Body())
+	assert.Equal(t, pathVal, actual.PathByName(pathKey))
+	assert.Equal(t, headVal, actual.HeaderByName(headKey))
+	assert.Equal(t, queryVal, actual.QueryByName(queryKey))
 }
