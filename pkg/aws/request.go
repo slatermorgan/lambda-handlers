@@ -11,6 +11,7 @@ type AWSRequest struct {
 
 func NewAWSRequest(r *events.APIGatewayProxyRequest) *AWSRequest {
 	return &AWSRequest{
+		body:        r.Body,
 		pathParams:  r.PathParameters,
 		queryParams: r.QueryStringParameters,
 		headers:     r.Headers,
