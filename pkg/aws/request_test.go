@@ -106,7 +106,7 @@ func TestNewAWSRequest(t *testing.T) {
 		PathParameters: map[string]string{
 			pathKey: pathVal,
 		},
-		Body: "body here",
+		Body: body,
 		Headers: map[string]string{
 			headKey: headVal,
 		},

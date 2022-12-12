@@ -28,7 +28,7 @@ func FindHandler(
 	beforeHook handler.BeforeHandlerHook,
 	afterHook AfterFindHandlerHook,
 ) handler.HandlerFunc {
-	return func(request handler.Requester) (handler.Responder, error) {
+	return func(request handler.Requester) (*handler.Response, error) {
 		if beforeHook != nil {
 			if err := beforeHook(request); err != nil {
 				return resHander.BuildErrorResponse(err)

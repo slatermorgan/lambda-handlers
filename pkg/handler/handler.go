@@ -10,14 +10,15 @@ type Requester interface {
 	GetAuthToken() string
 }
 
+func newResponse(code int, body string) {
+
+}
+
 // Genertic Response object which is used in every handler
-type Responder interface {
-	StatusCode() int
-	Headers() map[string]string
-	Body() string
-	SetStatusCode(code int)
-	SetHeaders(headers map[string]string)
-	SetBody(body string)
+type Response struct {
+	StatusCode int
+	Headers    map[string]string
+	Body       string
 }
 
 type Logger interface {
@@ -28,4 +29,4 @@ type Logger interface {
 // A Callback function can be passed in when building a handler and is passed the raw API Gateway Request struct
 type BeforeHandlerHook func(Requester) error
 
-type HandlerFunc = func(request Requester) (Responder, error)
+type HandlerFunc = func(request Requester) (*Response, error)

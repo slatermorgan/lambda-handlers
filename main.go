@@ -7,7 +7,6 @@ import (
 	muxRouter "github.com/gorilla/mux"
 	"github.com/sirupsen/logrus/hooks/test"
 	"github.com/slatermorgan/lambda-handlers/internal/mocks"
-	"github.com/slatermorgan/lambda-handlers/pkg/aws"
 	"github.com/slatermorgan/lambda-handlers/pkg/example"
 	"github.com/slatermorgan/lambda-handlers/pkg/handler"
 	"github.com/slatermorgan/lambda-handlers/pkg/mux"
@@ -36,7 +35,7 @@ func main() {
 	).Times(1)
 
 	logger, _ := test.NewNullLogger()
-	resHander := handler.NewResponseHandler(logger, &aws.AWSResponse{})
+	resHander := handler.NewResponseHandler(logger, map[string]string{})
 
 	r := muxRouter.NewRouter()
 	r.HandleFunc("/test", mux.CreateHandler(example.FindHandler(resHander, c, nil, nil)))
