@@ -2,43 +2,30 @@ package aws
 
 import (
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/slatermorgan/lambda-handlers/pkg/handler"
 )
 
-type AWSResponse struct {
-	statusCode int
-	headers    map[string]string
-	body       string
+type LambdaCallback = func(request *events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error)
+
+func Start(h handler.HandlerFunc) {
+	lambda.Start(
+		getHandler(h),
+	)
 }
 
-func (a *AWSResponse) StatusCode() int {
-	return a.statusCode
+func getHandler(h handler.HandlerFunc) LambdaCallback {
+	return func(r *events.APIGatewayProxyRequest) (*events.APIGatewayProxyResponse, error) {
+		res, err := h(NewAWSRequest(r))
+
+		return NewEvent(res), err
+	}
 }
 
-func (a *AWSResponse) Headers() map[string]string {
-	return a.headers
-}
-
-func (a *AWSResponse) Body() string {
-	return a.body
-}
-
-func (a *AWSResponse) SetStatusCode(code int) {
-	a.statusCode = code
-}
-
-func (a *AWSResponse) SetHeaders(headers map[string]string) {
-	a.headers = headers
-}
-
-func (a *AWSResponse) SetBody(body string) {
-	a.body = body
-}
-
-func NewEvent(r handler.Responder) *events.APIGatewayProxyResponse {
+func NewEvent(r *handler.Response) *events.APIGatewayProxyResponse {
 	return &events.APIGatewayProxyResponse{
-		StatusCode: r.StatusCode(),
-		Headers:    r.Headers(),
-		Body:       r.Body(),
+		StatusCode: r.StatusCode,
+		Headers:    r.Headers,
+		Body:       r.Body,
 	}
 }

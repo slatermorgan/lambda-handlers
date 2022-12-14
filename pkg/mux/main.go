@@ -16,11 +16,11 @@ func CreateHandler(
 	}
 }
 
-func WriteResponse(r handler.Responder, w http.ResponseWriter) {
-	for k, v := range r.Headers() {
+func WriteResponse(r *handler.Response, w http.ResponseWriter) {
+	for k, v := range r.Headers {
 		w.Header().Add(k, v)
 	}
 
-	w.WriteHeader(r.StatusCode())
-	w.Write([]byte(r.Body()))
+	w.WriteHeader(r.StatusCode)
+	w.Write([]byte(r.Body))
 }

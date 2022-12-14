@@ -9,27 +9,27 @@ import (
 
 // Genertic Handler object which is the reciever in every handler method
 type ResponseHandler struct {
-	DefaultHeaders map[string]string
-	responder      Responder
+	defaultHeaders map[string]string
 	logger         Logger
 }
 
-func NewResponseHandler(logger Logger, responder Responder) *ResponseHandler {
+func NewResponseHandler(
+	logger Logger,
+	defaultHeads map[string]string,
+) *ResponseHandler {
 	return &ResponseHandler{
-		logger:    logger,
-		responder: responder,
+		logger:         logger,
+		defaultHeaders: defaultHeads,
 	}
 }
 
 // Body gets request payload
-func (r *ResponseHandler) BuildResponse(code int, model interface{}) (Responder, error) {
+func (r *ResponseHandler) BuildResponse(code int, model interface{}) (*Response, error) {
 	body := ""
 	if model != nil {
 		bodyBytes, err := json.Marshal(model)
 		if err != nil {
-			r.responder.SetStatusCode(http.StatusInternalServerError)
-
-			return r.responder, err
+			return &Response{StatusCode: http.StatusInternalServerError}, err
 		}
 
 		body = string(bodyBytes)
@@ -40,15 +40,15 @@ func (r *ResponseHandler) BuildResponse(code int, model interface{}) (Responder,
 
 // BuildRawJSONResponse builds an Response with the given status code & response body
 // The Response will contain the raw response body and appropriate JSON header
-func (r *ResponseHandler) BuildResponder(code int, body string) (Responder, error) {
-	r.responder.SetStatusCode(code)
-	r.responder.SetHeaders(r.DefaultHeaders)
-	r.responder.SetBody(string(body))
-
-	return r.responder, nil
+func (r *ResponseHandler) BuildResponder(code int, body string) (*Response, error) {
+	return &Response{
+		StatusCode: code,
+		Body:       body,
+		Headers:    r.defaultHeaders,
+	}, nil
 }
 
-func (r *ResponseHandler) BuildErrorResponse(err error) (Responder, error) {
+func (r *ResponseHandler) BuildErrorResponse(err error) (*Response, error) {
 	statusCode := http.StatusInternalServerError
 	var serviceErr *serviceerror.ServiceError
 
