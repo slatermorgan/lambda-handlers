@@ -3,8 +3,6 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
-
-	"bitbucket.org/oneiota/serviceerror"
 )
 
 // Genertic Handler object which is the reciever in every handler method
@@ -50,16 +48,23 @@ func (r *ResponseHandler) BuildResponder(code int, body string) (*Response, erro
 
 func (r *ResponseHandler) BuildErrorResponse(err error) (*Response, error) {
 	statusCode := http.StatusInternalServerError
-	var serviceErr *serviceerror.ServiceError
+	var serviceErr error
 
-	switch err := err.(type) {
-	case *serviceerror.ServiceError:
-		statusCode = err.StatusCode()
+	isServiceError, code := isServiceError(err)
+
+	if isServiceError {
+		statusCode = code
 		serviceErr = err
-	default:
+	} else {
 		// If its a general error - we don't want to return the message as its a code/integration issue.
 		// We don't want those messages being shown to users.
-		serviceErr = serviceerror.Unknown("An unknown error occurred")
+		serviceErr = &ServiceError{
+			Err: Error{
+				ID:      "UNKNOWN_ERROR",
+				Code:    "UNKNOWN_ERROR",
+				Message: "An unknown error occurred",
+			},
+		}
 	}
 
 	if statusCode == http.StatusInternalServerError {
@@ -67,4 +72,22 @@ func (r *ResponseHandler) BuildErrorResponse(err error) (*Response, error) {
 	}
 
 	return r.BuildResponse(statusCode, serviceErr)
+}
+
+func isServiceError(err error) (bool, int) {
+	var code int
+
+	type serviceError interface {
+		Code() string
+		Error() string
+		StatusCode() int
+	}
+
+	se, isSe := err.(serviceError)
+
+	if isSe {
+		code = se.StatusCode()
+	}
+
+	return isSe, code
 }

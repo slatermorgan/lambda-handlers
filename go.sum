@@ -1,5 +1,3 @@
-bitbucket.org/oneiota/serviceerror v1.3.0 h1:ybqtQzYBPDVfbcT0KEQuxNOMavdlxgefa3zLo7d45es=
-bitbucket.org/oneiota/serviceerror v1.3.0/go.mod h1:k31/QS7qiUaorUSNnS8O58BJM2sidb3vEfwha0fExYA=
 github.com/aws/aws-lambda-go v1.34.1 h1:M3a/uFYBjii+tDcOJ0wL/WyFi2550FHoECdPf27zvOs=
 github.com/aws/aws-lambda-go v1.34.1/go.mod h1:jwFe2KmMsHmffA1X2R09hH6lFzJQxzI8qK17ewzbQMM=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
